@@ -52,27 +52,35 @@ definePageMeta({
 
 const error = ref('')
 const typeR = ['ฝ่ายบุคลากร','ผู้รับการประเมินผล','กรรมการประเมิน']
+const roleRoutes: Record<string, string> = {
+    'ฝ่ายบุคลากร': '/Staff',
+    'ผู้รับการประเมินผล': '/Evaluatee',
+    'กรรมการประเมิน': '/Committee'
+}
 const show = ref(false)
 const showPw = ref(false)
 const username = ref('')
 const password = ref('')
 const role = ref('')
+const router = useRouter()
 
 const login = async()=>{
 
     try {
+        error.value = ''
         const res = await auth.login({
             username:username.value,
             password:password.value,
             role:role.value
         })
-        console.log("Login",res.data);
+        const destination = roleRoutes[res.data.role]
+        if (res.data.role !== role.value || !destination) {
+            error.value = 'ประเภทสมาชิกที่เลือกไม่ตรงกับข้อมูลบัญชี กรุณาตรวจสอบแล้วลองใหม่'
+            return
+        }
+
         localStorage.setItem('token',res.data.token)
-        const useRole = res.data.role
-        if(useRole === 'ฝ่ายบุคลากร')useRouter().push('/Staff')
-        if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluatee')
-        if(useRole === 'กรรมการประเมิน')useRouter().push('/Committee')
-        alert('ทำรายการสำเร็จ')
+        await router.replace(destination)
     } catch (err:any) {
         console.error("Error login",err);   
         error.value = err.response?.data?.message || 'เข้าสู่ระบบไม่สำเร็จ'
