@@ -46,6 +46,10 @@ import axios from 'axios'
 import auth from '~/API/auth'
 import { api } from '~/API/base'
 
+definePageMeta({
+    layout:false
+})
+
 const error = ref('')
 const typeR = ['ฝ่ายบุคลากร','ผู้รับการประเมินผล','กรรมการประเมิน']
 const show = ref(false)
@@ -59,14 +63,14 @@ const login = async()=>{
     try {
         const res = await auth.login({
             username:username.value,
-            password:password,
+            password:password.value,
             role:role.value
         })
         console.log("Login",res.data);
         localStorage.setItem('token',res.data.token)
         const useRole = res.data.role
         if(useRole === 'ฝ่ายบุคลากร')useRouter().push('/Staff')
-        if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluation')
+        if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluatee')
         if(useRole === 'กรรมการประเมิน')useRouter().push('/Committee')
         alert('ทำรายการสำเร็จ')
     } catch (err:any) {

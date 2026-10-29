@@ -23,7 +23,7 @@ services:
     command: npx -y nodemon -L index.js
     restart: always
     volumes:
-      - ./backend:/node_modules
+      - ./backend:/app
       - backend_node_modules:/app/node_modules
     environment:
       DB_HOST: mysql
@@ -50,7 +50,7 @@ services:
   mysql:
     image: mysql
     container_name: MYSQL_Container
-    ports: ["3306:3307"]
+    ports: ["3305:3307"]
     restart: always
     volumes:
       - ./database:/docker-entrypoint-initdb.d

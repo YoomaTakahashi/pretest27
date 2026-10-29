@@ -1,10 +1,9 @@
 const express = require('express')
 const path = require('path')
 const bc = require('bcrypt')
-const path = require('path')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
-const uploadDir = path(__dirname,'../uploads/pic_user')
+const uploadDir = path.join(__dirname,'../uploads/pic_user')
 const db = require('../db')
 const router = express.Router()
 
@@ -16,7 +15,7 @@ router.post('/regis',async(req,res)=>{
 
         let filename = null
         if(pic_user){
-            filename = Date.now() + path.extname(uploadDir,filename)
+            filename = Date.now() + path.extname(pic_user.name)
             await pic_user.mv(path.join(uploadDir,filename))
         }
         const hash = await bc.hash(form.password,10)

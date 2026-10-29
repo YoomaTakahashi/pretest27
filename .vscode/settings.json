@@ -1,0 +1,5 @@
+{
+  // Use the stable TypeScript language service for this Vue/Nuxt workspace.
+  // The user-level TypeScript Go preview setting can interrupt JS/TS IntelliSense.
+  "js/ts.experimental.useTsgo": false
+}

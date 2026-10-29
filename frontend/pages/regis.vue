@@ -58,6 +58,10 @@ import axios from 'axios'
 import { api } from '~/API/base'
 
 
+definePageMeta({
+    layout:false
+})
+
 const pic_user = ref<File | null>(null)
 const error = ref<Record<string,string>>({})
 const typeR = ['ฝ่ายบุคลากร','ผู้รับการประเมินผล','กรรมการประเมิน']
