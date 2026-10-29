@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12">
                 <v-form v-if="user.status_eva === 2 || user.status_eva ===3">
-                    <h1 class="font-weight-bold">แบบประเมินตนเอง</h1>
+                    <h1 class="font-weight-bold">ผลการประเมินผลของผู้รับการประเมินผล</h1>
                     <v-card :elevation="5" rounded class="pa-4 py-4">
                         <p>ผู้ใช่งาน : {{ user.fname }} {{ user.lname }}</p>
                         <p>รอบการประเมินที่ : {{ user.round_sys }} ปี {{ user.year_sys }}</p>
@@ -26,9 +26,9 @@
                                     <td class="text-center border pa-2" style="width: 10%;">{{ indicate.detail_indicate }}</td>
                                     <td class="text-center border pa-2" style="width: 10%;">{{ indicate.point_indicate }}</td>
                                     <td class="text-center border pa-2" style="width: 10%;">{{ indicate.point_indicate*4 }}</td>
-                                    <td class="text-center border pa-2" style="width: 10%;">{{ indicate.detail_eva }}</td>
+                                    <td class="text-center border pa-2" style="width: 10%;">{{ indicate.detail_eva || '-' }}</td>
                                     <td class="text-center border pa-2" style="width: 10%;"><v-btn color="warning" prepend-icon="mdi-eye" @click="viwe(indicate.file_eva)">เปิดดู</v-btn></td>
-                                    <td class="text-center border pa-2" style="width: 10%;">{{ indicate.point_indicate*indicate.Score_member }}</td>
+                                    <td class="text-center border pa-2" style="width: 10%;">{{ indicate.point_indicate*indicate.score_member }}</td>
                                 </tr>
                             </v-table>
                         </v-col>
@@ -37,7 +37,7 @@
                         <v-card color="green " type="submit">คะแนนรวม : {{ user.total_eva }} คะแนน</v-card>
                     </div>
                 </v-form>
-                <v-alert type="success" variant="tonal" color="success" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
+                <v-alert type="warning" variant="tonal" color="warning  " v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
                 <v-alert type="error" variant="tonal" color="error" v-else>ไม่มีแบบประเมิน</v-alert>
             </v-col>
         </v-row>
