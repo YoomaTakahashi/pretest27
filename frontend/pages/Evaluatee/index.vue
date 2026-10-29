@@ -19,7 +19,7 @@
 
         <v-card class="mt-5" elevation="5" rounded >
             <v-sheet elevation="5" rounded class="pa-5 py-4">
-                <h1 class="font-weight-bold text-center">DashBoard - Evaluatee</h1>
+                <h1 class="font-weight-bold text-center">รอบการประเมินทั้งหมด</h1>
                 <v-table class="table">
                     <tr>
                         <th class="bg-grey p-2 border" style="width: 10%;">ลำดับ</th>
@@ -58,7 +58,7 @@ const fecth = async()=>{
 const fecthround = async()=>{
     const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/table`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${eva}/table/user`,{headers:{Authorization:`Bearer ${token}`}})
         round.value = res.data
     } catch (error) {
         console.error('ERROR GET BOX',error)
