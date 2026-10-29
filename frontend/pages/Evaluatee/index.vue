@@ -6,8 +6,10 @@
                 <v-card-text>
                     <v-row>
                         <v-col cols="12" md="4" v-for="b in box" :key="b">
-                            <div class="text-h5 text-center pa-4">{{ b.title }}</div>
-                            <div class="text-h5 text-center pa-4">{{ b.value }}</div>
+                            <v-card elevation="5" rounded="5"  class="pa-1 py-3 round">
+                                <div class="text-h5 text-center pa-4"><h1 class="text-h5">{{ b.title }}</h1></div>
+                                <div class="text-h5 text-center pa-4"><h2 class="text-h5">{{ b.value }}</h2></div>
+                            </v-card>
                         </v-col>
                     </v-row>
                 </v-card-text>
@@ -42,8 +44,34 @@ import axios from 'axios';
 import { api,eva } from '~/API/base';
 
 const box = ref<any>([])
+const round = ref<any>([])
+
+const fecth = async()=>{
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${api}/dash/eva`,{headers:{Authorization:`Bearer ${token}`}})
+        box.value = res.data.box
+    } catch (error) {
+        console.error('ERROR GET BOX',error)
+    }
+}
+const fecthround = async()=>{
+    const token = localStorage.getItem('token')
+    try {
+        const res = await axios.get(`${eva}/table`,{headers:{Authorization:`Bearer ${token}`}})
+        round.value = res.data
+    } catch (error) {
+        console.error('ERROR GET BOX',error)
+    }
+}
+
+onMounted(async()=>{
+    await Promise.all([fecth(),fecthround()])
+})
 </script>
 
 <style scoped>
-
+.round{
+    border-radius: 32px !important;
+}
 </style>
