@@ -19,6 +19,9 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+const dash = require('./routes/dash')
+app.use('/api/dash',dash)
+
 
 //eva
 
@@ -28,10 +31,18 @@ app.use('/api/Eva/edit_eva',edit_eva)
 const selfeva = require('./routes/Eva/selfeva')
 app.use('/api/Eva/selfeva',selfeva)
 
+<<<<<<< HEAD
 //commit
 
 const show_eva = require('./routes/Commit/show_eva')
 app.use('/api/Commit/show_eva',show_eva)
+=======
+const score_member = require('./routes/Eva/score_member')
+app.use('/api/Eva/score_member',score_member)
+
+const score_commit = require('./routes/Eva/score_commit')
+app.use('/api/Eva/score_commit',score_commit)
+>>>>>>> 37679c63b7e07852a84f514b9319c50b687384c6
 
 app.use((req,res)=> res.status(404).json({message:"Route Not Found"}))
 app.listen(3001,()=>{

@@ -67,7 +67,7 @@ onMounted(async()=>{
 
 const fileMap = ref<Record<string,File>>({})
 const onFilechange = (event:Event,id_topic:number,id_indicate:number)=>{
-    const file = (event.target as HTMLInputElement)?.files?.[1]
+    const file = (event.target as HTMLInputElement)?.files?.[0]
     if(!file)return
     fileMap.value[`${id_topic}-${id_indicate}`] = file
 }
