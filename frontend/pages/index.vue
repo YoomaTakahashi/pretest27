@@ -59,7 +59,7 @@ const login = async()=>{
     try {
         const res = await auth.login({
             username:username.value,
-            password:password,
+            password:password.value,
             role:role.value
         })
         console.log("Login",res.data);
