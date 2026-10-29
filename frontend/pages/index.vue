@@ -70,7 +70,7 @@ const login = async()=>{
         localStorage.setItem('token',res.data.token)
         const useRole = res.data.role
         if(useRole === 'ฝ่ายบุคลากร')useRouter().push('/Staff')
-        if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluatee')
+        if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluation')
         if(useRole === 'กรรมการประเมิน')useRouter().push('/Committee')
         alert('ทำรายการสำเร็จ')
     } catch (err:any) {
