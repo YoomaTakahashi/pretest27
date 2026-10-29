@@ -17,7 +17,7 @@
                                     <v-col cols="12">
                                         {{ t+1 }}.{{ i+1 }} {{ indicate.name_indicate }} รายละเอียดตัวชี้วัด : {{ indicate.detail_indicate }} น้ำหนักคะแนน : {{ indicate.point_indicate }} คะแนนเต็ม : {{ indicate.point_indicate*4 }}
                                         <p class="mt-2">รายละเอียด: {{ indicate.detail_eva || '-' }}</p>
-                                        <p class="mt-2">File: <v-btn v-if="indicate.file_eva" size="smail" @click="viweFile(indicate.file_eva)"></v-btn> </p>
+                                        <p class="mt-2">File: <v-btn v-if="indicate.file_eva" size="smail" @click="viweFile(indicate.file_eva)"></v-btn> <span v-else >ไม่มี</span> </p>
                                         <v-select v-if="indicate.check_indicate === 'y'" label="ใส่คะแนน1-4" :items="[1,2,3,4]" variant="solo-filled" v-model="indicate.score" ></v-select>
                                         <v-text-field v-else-if="indicate.check_indicate === 'n'" label="ใส่คะแนน1-4" :items="[1,2,3,4]" variant="solo-filled" v-model="indicate.score" @input="indicate.score > 4 ? indicate.score = 4 : null" type="number" min="0"></v-text-field>
                                     </v-col>
