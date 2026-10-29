@@ -45,13 +45,24 @@ import auth from '~/API/auth'
 definePageMeta({ layout: false })
 
 const error = ref('')
+<<<<<<< HEAD
 const typeR = ['ฝ่ายบุคลากร', 'ผู้รับการประเมินผล', 'กรรมการประเมิน']
+=======
+const typeR = ['ฝ่ายบุคลากร','ผู้รับการประเมินผล','กรรมการประเมิน']
+const roleRoutes: Record<string, string> = {
+    'ฝ่ายบุคลากร': '/Staff',
+    'ผู้รับการประเมินผล': '/Evaluatee',
+    'กรรมการประเมิน': '/Committee'
+}
+>>>>>>> 77aa6cb573cfe23b1bca9362ca234e7adc1151df
 const show = ref(false)
 const showPw = ref(false)
 const username = ref('')
 const password = ref('')
 const role = ref('')
+const router = useRouter()
 
+<<<<<<< HEAD
 const login = async () => {
   error.value = ''
   const router = useRouter()
@@ -71,5 +82,28 @@ const login = async () => {
     console.error('Error login', err)
     error.value = err.response?.data?.message || 'เข้าสู่ระบบไม่สำเร็จ'
   }
+=======
+const login = async()=>{
+
+    try {
+        error.value = ''
+        const res = await auth.login({
+            username:username.value,
+            password:password.value,
+            role:role.value
+        })
+        const destination = roleRoutes[res.data.role]
+        if (res.data.role !== role.value || !destination) {
+            error.value = 'ประเภทสมาชิกที่เลือกไม่ตรงกับข้อมูลบัญชี กรุณาตรวจสอบแล้วลองใหม่'
+            return
+        }
+
+        localStorage.setItem('token',res.data.token)
+        await router.replace(destination)
+    } catch (err:any) {
+        console.error("Error login",err);   
+        error.value = err.response?.data?.message || 'เข้าสู่ระบบไม่สำเร็จ'
+    }
+>>>>>>> 77aa6cb573cfe23b1bca9362ca234e7adc1151df
 }
 </script>

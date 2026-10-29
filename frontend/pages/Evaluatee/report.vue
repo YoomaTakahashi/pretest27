@@ -1,5 +1,5 @@
-<template>
-    <v-container>
+<template >
+    <v-container class="">
         <v-row>
             <v-col cols="12">
                 <v-form v-if="user.status_eva === 2|| user.status_eva ===3">
@@ -43,7 +43,7 @@
                         </v-card>
                     </div>
                     <div class="mt-3 text-center">
-                        <v-btn color="warning " @click="print" type="submit">พิมพ์</v-btn>
+                        <v-btn color="warning " @click="print" >พิมพ์</v-btn>
                     </div>
                 </v-form>
                 <v-alert type="warning" variant="tonal" color="warning  " v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
