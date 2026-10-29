@@ -23,7 +23,7 @@ services:
     command: npx -y nodemon -L index.js
     restart: always
     volumes:
-      - ./backend:/node_modules
+      - ./backend:/app
       - backend_node_modules:/app/node_modules
     environment:
       DB_HOST: mysql
