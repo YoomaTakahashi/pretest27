@@ -13,7 +13,7 @@ export default defineNuxtPlugin((app) => {
         myTheme: {
           dark: false,
           colors: {
-            background: '#ffffff88',
+            background: '#f8f8f8fb',
           },
         },
       },
