@@ -14,7 +14,7 @@ router.post('/regis',async(req,res)=>{
         const pic_user = req.files?.pic_user
         let filename = null
         if(pic_user){
-            filename = Date.now + path.extname(pic_user.name)
+            filename = Date.now() + path.extname(pic_user.name)
             await pic_user.mv(path.join(uploadDir,filename))
         }
         const hash = await bc.hash(form.password,10)

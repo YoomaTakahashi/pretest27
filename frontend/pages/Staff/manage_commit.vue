@@ -22,7 +22,7 @@
                                 <v-col cols="12" md="6">
                                     <v-text-field label="ชื่อผู้ใช้" v-model="form.username" :error-messages="error.username" prepend-inner-icon="mdi-account"></v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="6">
+                                <v-col cols="12" md="12">
                                     <v-text-field label="รหัสผ่าน" v-model="form.password" :error-messages="error.password" :prepend-inner-icon="show ? 'mdi-eye':'mdi-eye-off'" :type="showPw ? 'text':'password'" @click:prepend-inner="show = !show , showPw = !showPw"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="12">
@@ -38,7 +38,7 @@
                                 </v-col>
                             </v-row>
                         </v-form>
-                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="v-text-field"></v-text-field>
+                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="mdi-magnify"></v-text-field>
                         <v-table class="mt-3">
                             <thead>
                                 <tr>
@@ -61,6 +61,9 @@
                                              <v-btn class="text-center text-white ma-2" size="small" color="error" @click="del(items.id_member)">ลบ</v-btn>
                                         </center>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="text-center text-red" v-if="result.length === 0">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
                         </v-table>
