@@ -30,7 +30,7 @@ router.get(`/topic/:id_eva`,verifyToken,requireRole('กรรมการปร
             statusCommit = 4
         }
         const [topics] = await db.query(`select * from tb_topic`)
-        const [indicates] = await db.query(`select * from tb_indicate i,tb_evadetail d where i.id_indicate=d.id_indicate and d.status_eva in (2,3,4)  and id_eva=?`,[id_eva])
+        const [indicates] = await db.query(`select * from tb_indicate i,tb_evadetail d where d.id_indicate=i.id_indicate     and status_eva in (2,3,4) order by id_eva=?`,[id_eva])
         const result = topics.map(t=>({
             ...t, indicates:indicates.filter((i)=> i.id_topic === t.id_topic)
         }))
