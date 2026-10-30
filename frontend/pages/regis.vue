@@ -37,10 +37,13 @@
                                 </v-col>
                             </v-row>
                             <v-row>
-                                <center>
-                                    <v-btn class="ma-2 text-center" color="primary" type="submit">สมัครสมาชิก</v-btn>
-                                    <v-btn class="ma-2 text-center" color="error" type="reset">ยกเลิก</v-btn>
-                                </center>
+                                <v-col cols="12" md="12">
+                                    <center>
+                                        <v-btn class="ma-2 text-center" color="primary" type="submit">สมัครสมาชิก</v-btn>
+                                        <v-btn class="ma-2 text-center" color="error" type="reset">ยกเลิก</v-btn>
+                                    </center>
+                                </v-col>
+                                
                             </v-row>
                         </v-form>
                         <nuxt-link to="/" class="text-center text-blue text-decoration-none"><p>หากมีบัญชีอยู่แล้ว? เข้าสู่ระบบ</p></nuxt-link>

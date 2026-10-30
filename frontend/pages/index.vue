@@ -61,8 +61,9 @@ const showPw = ref(false)
 const login = async()=>{
 
     try {
+        error.value = ''
         const res = await auth.login({
-            username:username.value,
+            username:username.value.trim(),
             password:password.value,
             role:role.value
         })

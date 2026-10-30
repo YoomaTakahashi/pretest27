@@ -12,14 +12,16 @@ router.post('/regis',async(req,res)=>{
         
         const form = JSON.parse(req.body.form)
         const pic_user = req.files?.pic_user
-        
-        const filename = Date.now + path.extname(pic_user.name)
-        await pic_user.mv(path.join(uploadDir,filename))
+        let filename = null
+        if(pic_user){
+            filename = Date.now + path.extname(pic_user.name)
+            await pic_user.mv(path.join(uploadDir,filename))
+        }
         const hash = await bc.hash(form.password,10)
         const [rows] = await db.query(`insert into tb_member(fname,lname,email,username,password,role,pic_user) values(?,?,?,?,?,?,?)`,[form.fname,form.lname,form.email,form.username,hash,form.role,filename])
         res.json(rows,{message:"regis Success"})
     } catch (error) {
-        console.error("Error regis");
+        console.error("Error regis",error);
         res.status(500).json({message:"Error regis"})
     }
 
@@ -40,9 +42,9 @@ router.post('/login',async(req,res)=>{
         const token = jwt.sign(
             {id_member:m.id_member,username:m.username,role:m.role},JWT_SECRET,{expiresIn:'24h'}
         )
-        res.json(rows,{message:"login Success"})
+        res.json({token,role:m.role},{message:"login Success"})
     } catch (error) {
-        console.error("Error login");
+        console.error("Error login",error);
         res.status(500).json({message:"Error login"})
     }
 
