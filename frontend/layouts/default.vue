@@ -108,5 +108,11 @@ const bg = (role:string) =>{
 </script>
 
 <style scoped>
-
+@media print{
+  .no-p,.v-app-bar,.v-btn,.v-navigate-drawer,.v-list{
+        display: none !important;
+        margin: 0px !important;
+  }
+}
+    
 </style>

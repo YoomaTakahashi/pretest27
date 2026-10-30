@@ -120,7 +120,7 @@ function validateForm(){
 
     if(!f.password.trim())error.value.password = 'กรุณากรอกรหัสผ่าน'
     else if(f.password.trim().length < 4)error.value.password = 'รหัสผ่านต้องยาวอย่างน้อย 4 ตัวอักษร' 
-
+    if(!f.role.trim())error.value.role = 'กรุณาเลือกประเภทสมาชิก'
     return Object.keys(error.value).length === 0
 
 }

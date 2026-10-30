@@ -21,7 +21,7 @@ router.put('/update/:id_eva',verifyToken,requireRole('ฝ่ายบุคล�
     try {
         const {id_eva} = req.params
         const {id_member,id_sys,day_eva} = req.body
-        const [rows] = await db.query(`update tb_eva set id_member=?,id_sys=?day_eva=? where id_eva = ?`,[id_member,id_sys,day_eva,id_eva])
+        const [rows] = await db.query(`update tb_eva set id_member=?,id_sys=?,day_eva=? where id_eva = ?`,[id_member,id_sys,day_eva,id_eva])
         res.json(rows)
         
 
