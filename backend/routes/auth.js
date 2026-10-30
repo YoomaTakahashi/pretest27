@@ -8,7 +8,6 @@ const db = require('../db')
 const router = express.Router()
 
 router.post('/regis',async(req,res)=>{
-
     try {
         
         const form = JSON.parse(req.body.form)
