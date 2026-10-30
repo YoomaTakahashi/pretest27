@@ -23,37 +23,48 @@
                                     <v-select label="น้ำหนักคะแนน" v-model="form.point_indicate" :error-messages="error.point_indicate" :items="[1,2,3,4,5]"></v-select>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-select label="ประเภทตัวเลือก" v-model="form.point_indicate" :error-messages="error.point_indicate" :items="[1,2,3,4,5]"></v-select>
+                                    <v-select label="ประเภทตัวเลือก" v-model="form.check_indicate" :error-messages="error.check_indicate" :items="[{title:'มี',value:'y'},{title:'ไม่มี',value:'n'}]"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="12">
                                     <center>
-                                        <v-btn class="ma-2 text-center" color="primary" type="submit">{{ form.id_topic ? 'อัปเดต':'บันทึก' }}</v-btn>
+                                        <v-btn class="ma-2 text-center" color="primary" type="submit">{{ form.id_indicate ? 'อัปเดต':'บันทึก' }}</v-btn>
                                         <v-btn class="ma-2 text-center" color="error" @click="reset()">ยกเลิก</v-btn>
                                     </center>
                                 </v-col>
                             </v-row>
                         </v-form>
-                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="v-text-field"></v-text-field>
+                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="mdi-magnify"></v-text-field>
                         <v-table class="mt-3">
                             <thead>
                                 <tr>
                                     <th class="border text-center">ลำดับ</th>
-                                    <th class="border text-center">ชื่อหัวข้อการประเมิน</th>
+                                    <th class="border text-center">หัวข้อการประเมิน</th>
+                                    <th class="border text-center">ชื่อตัวชี้วัด</th>
+                                    <th class="border text-center">รายละเอียดตัวชี้วัด</th>
+                                    <th class="border text-center">น้ำหนักคะแนน</th>
+                                    <th class="border text-center">ประเภทตัวเลือก</th>
                                     <th class="border text-center">จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(items,index) in result" :key="items.id_topic">
+                                <tr v-for="(items,index) in result" :key="items.id_indicate">
                                     <td class="border text-center">{{ index+1 }}</td>
                                     <td class="border text-center">{{ items.name_topic }}</td>
+                                    <td class="border text-center">{{ items.name_indicate }}</td>
+                                    <td class="border text-center">{{ items.detail_indicate || '-' }}</td>
+                                    <td class="border text-center">{{ items.point_indicate }}</td>
+                                    <td class="border text-center">{{ items.check_indicate === 'y' ? 'มี':'ไม่มี' }}</td>
                                     <td class="border text-center">
                                         <center>
                                             <v-btn class="text-center text-white ma-2" size="small" color="warning" @click="edit(items)">แก้ไข</v-btn>
-                                             <v-btn class="text-center text-white ma-2" size="small" color="error" @click="del(items.id_topic)">ลบ</v-btn>
+                                             <v-btn class="text-center text-white ma-2" size="small" color="error" @click="del(items.id_indicate)">ลบ</v-btn>
                                         </center>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="text-center text-red" v-if="result.length === 0">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
                         </v-table>
@@ -68,27 +79,36 @@
 import axios from 'axios'
 import { api, staff } from '~/API/base'
 
-
+const topics = ref([])
 const error = ref<Record<string,string>>({})
 const search = ref('')
 const dataResult = ref([])
 const form = ref({
-    id_topic:null,
-    name_topic:''
+    id_indicate:null,
+    id_topic:'',
+    name_indicate:'',
+    detail_indicate:'',
+    point_indicate:'',
+    check_indicate:''
 })
 const reset = ()=>{
     form.value = {
-        id_topic:null,
-        name_topic:''
+        id_indicate:null,
+        id_topic:'',
+        name_indicate:'',
+        detail_indicate:'',
+        point_indicate:'',
+        check_indicate:''
     }
 }
-const emailRegex = /^[^\s]+@[^\s]+[^\s]{2,}$/i
 function validateForm(){
     const f = form.value
     error.value = {}
 
-    if(!f.name_topic.trim())error.value.name_topic = 'กรุณากรอกชื่อหัวข้อการประเมิน'
-
+    if(!f.id_topic)error.value.id_topic = 'กรุณาเลือกหัวข้อการประเมิน'
+    if(!f.name_indicate.trim())error.value.name_indicate = 'กรุณากรอกชื่อตัวชี้วัด'
+    if(!f.point_indicate)error.value.point_indicate = 'กรุณาเลือกน้ำหนักคะแนน'
+    if(!f.check_indicate)error.value.check_indicate = 'กรุณาเลือกประเภทตัวเลือก'
     return Object.keys(error.value).length === 0
 
 }
@@ -101,9 +121,9 @@ const saveMember = async()=>{
     const f = form.value
     try {
 
-        f.id_topic
-        ? await axios.put(`${staff}/topic/update/${f.id_topic}`,f,{headers:{Authorization:`Bearer ${token}`}})
-        : await axios.post(`${staff}/topic/save`,f,{headers:{Authorization:`Bearer ${token}`}})
+        f.id_indicate
+        ? await axios.put(`${staff}/indicate/update/${f.id_indicate}`,f,{headers:{Authorization:`Bearer ${token}`}})
+        : await axios.post(`${staff}/indicate/save`,f,{headers:{Authorization:`Bearer ${token}`}})
         await reset()
         await fetch()
         alert('ทำรายการสำเร็จ')
@@ -115,8 +135,10 @@ const saveMember = async()=>{
 
 const fetch = async()=>{
     try {
-        const res = await axios.get(`${staff}/topic/show`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/indicate/show`,{headers:{Authorization:`Bearer ${token}`}})
         dataResult.value = res.data
+        const res2 = await axios.get(`${staff}/topic/show`,{headers:{Authorization:`Bearer ${token}`}})
+        topics.value = res2.data
     } catch (error) {
         console.error("Error get",error)
     }
@@ -126,10 +148,10 @@ const edit = (items:any)=>{
     form.value = {...items}
 }
 
-const del = async(id_topic:number)=>{
+const del = async(id_indicate:number)=>{
     if(!confirm('ต้องการลบข้อมูลชุดนี้ใช่หรือไม่'))return
     try {
-        await axios.delete(`${staff}/topic/delete/${id_topic}`,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.delete(`${staff}/indicate/delete/${id_indicate}`,{headers:{Authorization:`Bearer ${token}`}})
         await reset()
         await fetch()
     } catch (error) {
@@ -145,7 +167,7 @@ const result = computed(()=>{
 
     return dataResult.value.filter((items:any)=>{
         return(
-            items.name_topic.toLowerCase().includes(s)
+            items.name_indicate.toLowerCase().includes(s)
         )
     })
 

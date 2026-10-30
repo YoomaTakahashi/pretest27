@@ -29,11 +29,11 @@ services:
       DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: 1234
-      DB_DATABASE: "pretest27"
+      DB_DATABASE: pretest27
       JWT_SECRET: "Tee&Kate"
       CHOKIDAR_USEPOLLING: true
     networks: ["app-networks"]
-  
+
   phpmyadmin:
     image: phpmyadmin
     depends_on:
@@ -46,7 +46,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: 1234
     networks: ["app-networks"]
-  
+
   mysql:
     image: mysql
     container_name: MYSQL_Container
@@ -63,9 +63,8 @@ services:
 networks:
   app-networks:
     driver: bridge
-  
+
 volumes:
   frontend_node_modules:
   backend_node_modules:
   mysql_data:
-    

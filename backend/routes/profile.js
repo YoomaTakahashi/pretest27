@@ -5,8 +5,8 @@ const {verifyToken} = require('../middleware/authmiddleware')
 
 router.get('/',verifyToken,async (req,res) => {
     try {
-        const [rows] = await db.query('SELECT id_member, fname, lname, username, email, role FROM tb_member WHERE id_member = ?', [req.user.id_member])
-        if (!rows.length) return res.status(404).json({message:'User Not Found'})
+        const id_member =req.user.id_member
+        const [rows] = await db.query(`select * from tb_member where id_member = ?`,[id_member])
         res.json(rows[0])
     } catch (error) {
         console.error('Error Get user',error)

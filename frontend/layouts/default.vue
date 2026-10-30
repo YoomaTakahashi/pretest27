@@ -59,7 +59,7 @@ const logout = ()=>{
 const roles = [
     {title:'หน้าหลัก',to:'/Staff/',role:'ฝ่ายบุคลากร'},
     {title:'จัดการผู้รับการประเมิน',to:'/Staff/Manage_eva',role:'ฝ่ายบุคลากร'},
-    {title:'จัดการกรรมการประเมิน',to:'/Staff/Manage_comit',role:'ฝ่ายบุคลากร'},
+    {title:'จัดการกรรมการประเมิน',to:'/Staff/Manage_commit',role:'ฝ่ายบุคลากร'},
     {title:'จัดการหัวข้อการประเมิน',to:'/Staff/Topic',role:'ฝ่ายบุคลากร'},
     {title:'จัดการตัวชี้วัดการประเมิน',to:'/Staff/Indicate',role:'ฝ่ายบุคลากร'},
     {title:'จัดการรอบการประเมิน',to:'/Staff/round',role:'ฝ่ายบุคลากร'},

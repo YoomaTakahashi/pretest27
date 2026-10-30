@@ -23,7 +23,7 @@
                                 </v-col>
                             </v-row>
                         </v-form>
-                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="v-text-field"></v-text-field>
+                        <v-text-field label="ค้นหา" placeholder="ค้นหา" v-model="search" prepend-inner-icon="mdi-magnify"></v-text-field>
                         <v-table class="mt-3">
                             <thead>
                                 <tr>
@@ -42,6 +42,9 @@
                                              <v-btn class="text-center text-white ma-2" size="small" color="error" @click="del(items.id_topic)">ลบ</v-btn>
                                         </center>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" class="text-center text-red" v-if="result.length === 0">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
                         </v-table>
