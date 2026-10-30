@@ -1,6 +1,6 @@
 const express = require('express')
 const path= require('path')
-const uploadDir = path.join(__dirname,'../uploads/document')
+const uploadDir = path.join(__dirname,'../../uploads/document')
 const db = require('../../db')
 const {verifyToken,requireRole} = require('../../middleware/authmiddleware')
 const router = express.Router()
@@ -17,7 +17,7 @@ router.post('/save',verifyToken,requireRole('ฝ่ายบุคลากร')
         }
         const filename = Date.now() + path.extname(file.name)
         await file.mv(path.join(uploadDir,filename))
-        const [rows] = await db.query(`insert into tb_doc values(?,CURDATE(),?)`,[name_doc,filename])
+        const [rows] = await db.query(`insert into tb_doc(name_doc,day_doc,file) values(?,CURDATE(),?)`,[name_doc,filename])
         res.json(rows,{message:"regis Success"})
     } catch (error) {
         console.error("Error regis",error);

@@ -146,6 +146,10 @@ const formatDate = (dateStr:string)=>{
     return `${day}/${month}/${year}`
 }
 
+const view = (file:string)=>{
+    const url = new URL(`/uploads/document/${file}`,api).href
+    window.open(url,'_blank')
+}
 
 onMounted(fetch)
 
